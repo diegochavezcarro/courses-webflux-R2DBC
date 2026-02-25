@@ -9,6 +9,6 @@ spring:
       connection-timeout: 300
   threads:
     virtual:
-      enabled: false
+      enabled: true
 server:
   port: 8080
