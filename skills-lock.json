@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "spring-boot-engineer": {
+      "source": "jeffallan/claude-skills",
+      "sourceType": "github",
+      "computedHash": "e1d2a67bbd62ad760b36aeae7b7abd6edcf3aaab28029515b218c84dfeb5889a"
+    }
+  }
+}
