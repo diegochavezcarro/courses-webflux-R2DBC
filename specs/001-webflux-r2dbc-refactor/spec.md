@@ -16,19 +16,6 @@
 
 ## User Scenarios & Testing *(mandatory)*
 
-<!--
-  IMPORTANT: User stories should be PRIORITIZED as user journeys ordered by importance.
-  Each user story/journey must be INDEPENDENTLY TESTABLE - meaning if you implement just ONE of them,
-  you should still have a viable MVP (Minimum Viable Product) that delivers value.
-  
-  Assign priorities (P1, P2, P3, etc.) to each story, where P1 is the most critical.
-  Think of each story as a standalone slice of functionality that can be:
-  - Developed independently
-  - Tested independently
-  - Deployed independently
-  - Demonstrated to users independently
--->
-
 ### User Story 1 - Consume existing /courses contract unchanged (Priority: P1)
 
 As an API consumer, I can continue calling `GET /courses` with the `limit` query parameter and receive the same response shape and status behavior as before the refactor.
@@ -74,11 +61,6 @@ As a developer/operator, I can run the service and automated tests locally again
 
 ### Edge Cases
 
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right edge cases.
--->
-
 - `limit` is omitted (default behavior must match current implementation).
 - `limit` is non-numeric (must preserve exactly the current MVC baseline status code and error response shape).
 - `limit` is zero or negative (must preserve exactly the current baseline status and payload behavior).
@@ -86,11 +68,6 @@ As a developer/operator, I can run the service and automated tests locally again
 - Nullable DB fields (`duration_h`, `active`, `created_at`) must preserve current serialization behavior.
 
 ## Requirements *(mandatory)*
-
-<!--
-  ACTION REQUIRED: The content in this section represents placeholders.
-  Fill them out with the right functional requirements.
--->
 
 ### Functional Requirements
 
@@ -126,11 +103,6 @@ As a developer/operator, I can run the service and automated tests locally again
 - Integration tests will seed and clean only test-owned rows in the existing schema to avoid dependence on pre-existing manual data.
 
 ## Success Criteria *(mandatory)*
-
-<!--
-  ACTION REQUIRED: Define measurable success criteria.
-  These must be technology-agnostic and measurable.
--->
 
 ### Measurable Outcomes
 
