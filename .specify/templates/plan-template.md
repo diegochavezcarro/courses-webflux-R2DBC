@@ -31,7 +31,19 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- **API Contract Stability**: Confirm whether endpoints, request/response shapes, and status
+  codes are unchanged. If any change is intentional, document explicit user approval.
+- **Java 21 Baseline**: Confirm language level, compiler target, and toolchain settings use
+  Java 21 unless explicitly waived by user request.
+- **Spring Boot Standards**: Confirm Spring Boot 3.x conventions are preserved (constructor
+  injection, layered design, boundary validation, exception handling).
+- **Automated Testing**: Define test updates required for all impacted behaviors; no plan is
+  valid without executable verification steps.
+- **Behavior Preservation**: For refactors/migrations, list observable invariants and how they
+  will be validated.
+- **No-k6 Rule**: Confirm no files under `k6/` are modified and no k6 stress/performance tests
+  are scheduled for execution unless explicitly requested.
+- **Minimal Diff Scope**: Identify non-goals and guardrails to prevent unrelated changes.
 
 ## Project Structure
 

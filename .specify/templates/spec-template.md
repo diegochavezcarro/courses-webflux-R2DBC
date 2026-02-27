@@ -90,6 +90,19 @@
 - **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
 - **FR-005**: System MUST [behavior, e.g., "log all security events"]
 
+### Compatibility & Non-Regression Requirements *(mandatory for existing systems)*
+
+- **CNR-001**: Existing public API endpoints MUST remain stable unless a user explicitly requests
+  a contract change.
+- **CNR-002**: Request/response payload shapes and status codes MUST remain backward compatible for
+  refactors and framework migrations.
+- **CNR-003**: Specification MUST list impacted behavior and define automated regression coverage.
+- **CNR-004**: Scope MUST exclude unrelated feature additions unless explicitly requested.
+- **CNR-005**: Java language level, compiler target, and toolchain MUST be Java 21 unless
+  explicitly requested otherwise.
+- **CNR-006**: Work scope MUST NOT modify files under `k6/`, and validation MUST NOT include k6
+  stress/performance test execution unless explicitly requested.
+
 *Example of marking unclear requirements:*
 
 - **FR-006**: System MUST authenticate users via [NEEDS CLARIFICATION: auth method not specified - email/password, SSO, OAuth?]
