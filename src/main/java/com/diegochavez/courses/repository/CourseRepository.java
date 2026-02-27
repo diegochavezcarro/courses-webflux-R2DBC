@@ -2,10 +2,9 @@ package com.diegochavez.courses.repository;
 
 import com.diegochavez.courses.model.Course;
 import java.time.OffsetDateTime;
-import java.util.List;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.r2dbc.core.DatabaseClient;
 import org.springframework.stereotype.Repository;
+import reactor.core.publisher.Flux;
 
 @Repository
 public class CourseRepository {
@@ -14,27 +13,28 @@ public class CourseRepository {
             SELECT id, code, title, description, level, duration_h, active, created_at
             FROM courses
             ORDER BY id
-            LIMIT ?
+            LIMIT :limit
             """;
 
-    private final JdbcTemplate jdbcTemplate;
-    private final RowMapper<Course> courseRowMapper = (rs, rowNum) -> new Course(
-            rs.getLong("id"),
-            rs.getString("code"),
-            rs.getString("title"),
-            rs.getString("description"),
-            rs.getString("level"),
-            rs.getObject("duration_h", Integer.class),
-            rs.getObject("active", Boolean.class),
-            rs.getObject("created_at", OffsetDateTime.class)
-    );
+    private final DatabaseClient databaseClient;
 
-    public CourseRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public CourseRepository(DatabaseClient databaseClient) {
+        this.databaseClient = databaseClient;
     }
 
-    @SuppressWarnings("null")
-    public List<Course> findAll(int limit) {
-        return jdbcTemplate.query(FIND_ALL_SQL, courseRowMapper, limit);
+    public Flux<Course> findAll(int limit) {
+        return databaseClient.sql(FIND_ALL_SQL)
+                .bind("limit", limit)
+                .map((row, metadata) -> new Course(
+                        row.get("id", Long.class),
+                        row.get("code", String.class),
+                        row.get("title", String.class),
+                        row.get("description", String.class),
+                        row.get("level", String.class),
+                        row.get("duration_h", Integer.class),
+                        row.get("active", Boolean.class),
+                        row.get("created_at", OffsetDateTime.class)
+                ))
+                .all();
     }
 }

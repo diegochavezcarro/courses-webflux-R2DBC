@@ -1,0 +1,7 @@
+spring:
+  r2dbc:
+    url: ${TEST_R2DBC_URL:${DB_R2DBC_URL:r2dbc:postgresql://localhost:5432/coursesdb}}
+    username: ${TEST_DB_USERNAME:${DB_USERNAME:appuser}}
+    password: ${TEST_DB_PASSWORD:${DB_PASSWORD:}}
+server:
+  port: 0
