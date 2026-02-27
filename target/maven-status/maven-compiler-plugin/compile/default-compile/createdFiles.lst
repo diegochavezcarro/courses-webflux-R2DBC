@@ -1,5 +1,0 @@
-com/diegochavez/courses/service/CourseService.class
-com/diegochavez/courses/repository/CourseRepository.class
-com/diegochavez/courses/controller/CourseController.class
-com/diegochavez/courses/CoursesMvcJdbcApplication.class
-com/diegochavez/courses/model/Course.class
