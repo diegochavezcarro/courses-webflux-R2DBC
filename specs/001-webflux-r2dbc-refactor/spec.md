@@ -5,6 +5,15 @@
 **Status**: Draft  
 **Input**: User description: "Refactor /courses API from Spring MVC + JDBC to Spring WebFlux + R2DBC preserving exact behavior and API contract"
 
+## Clarifications
+
+### Session 2026-02-27
+
+- Q: Para `GET /courses?limit=<no numérico>`, ¿qué comportamiento debe preservarse? → A: Mantener exactamente el status code y shape de error actual del servicio (baseline MVC).
+- Q: ¿Qué estrategia de datos usar para tests de integración locales? → A: Crear/limpiar datos de prueba controlados en cada test de integración, manteniendo el esquema actual.
+- Q: ¿Qué hacer con `limit=0` y `limit<0`? → A: Preservar exactamente el comportamiento baseline actual (status y payload).
+- Q: ¿Cómo definir el contrato de ordenamiento de resultados? → A: Fijar orden por `id` ascendente, como baseline actual.
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
@@ -31,7 +40,7 @@ As an API consumer, I can continue calling `GET /courses` with the `limit` query
 **Acceptance Scenarios**:
 
 1. **Given** the API is running with existing course data, **When** a client requests `GET /courses` without query params, **Then** the API returns HTTP 200 and a JSON array of courses using the current field names.
-2. **Given** the API is running with existing course data, **When** a client requests `GET /courses?limit=25`, **Then** the API returns HTTP 200 with at most 25 courses ordered exactly as in current behavior.
+2. **Given** the API is running with existing course data, **When** a client requests `GET /courses?limit=25`, **Then** the API returns HTTP 200 with at most 25 courses ordered by `id` ascending.
 
 ---
 
@@ -71,8 +80,8 @@ As a developer/operator, I can run the service and automated tests locally again
 -->
 
 - `limit` is omitted (default behavior must match current implementation).
-- `limit` is non-numeric (error behavior and status outcome must match current implementation).
-- `limit` is zero or negative (observed behavior must remain unchanged).
+- `limit` is non-numeric (must preserve exactly the current MVC baseline status code and error response shape).
+- `limit` is zero or negative (must preserve exactly the current baseline status and payload behavior).
 - Database returns no rows (must return the same empty-result response contract as current API).
 - Nullable DB fields (`duration_h`, `active`, `created_at`) must preserve current serialization behavior.
 
@@ -88,10 +97,12 @@ As a developer/operator, I can run the service and automated tests locally again
 - **FR-001**: System MUST expose exactly one public endpoint for this feature scope: `GET /courses`.
 - **FR-002**: System MUST support the `limit` query parameter with default value `100` when omitted.
 - **FR-003**: System MUST return course records with the same response field set currently exposed (`id`, `code`, `title`, `description`, `level`, `durationH`, `active`, `createdAt`).
-- **FR-004**: System MUST preserve current ordering semantics for `/courses` results.
-- **FR-005**: System MUST preserve current status code behavior and observable error behavior for valid and invalid `limit` requests.
+- **FR-004**: System MUST return `/courses` results ordered by `id` ascending.
+- **FR-005**: System MUST preserve current status code behavior and observable error behavior for valid and invalid `limit` requests, including exact baseline behavior for non-numeric `limit` values.
+- **FR-009**: System MUST preserve exact baseline behavior for `limit=0` and `limit<0`, including status codes and payload shape.
 - **FR-006**: System MUST use the existing database schema without requiring schema changes or data migrations.
 - **FR-007**: System MUST allow local execution with a manually started database and no required container or infrastructure provisioning.
+- **FR-008**: Integration tests MUST manage controlled test data setup/cleanup per test case to keep results deterministic.
 
 ### Compatibility & Non-Regression Requirements *(mandatory for existing systems)*
 
@@ -112,6 +123,7 @@ As a developer/operator, I can run the service and automated tests locally again
 - Current `/courses` behavior observed from the existing MVC/JDBC implementation is the source of truth for compatibility.
 - The database is started manually by the user before running the app/tests.
 - Deterministic tests may use controlled test data setup against a local database without introducing new infrastructure tooling.
+- Integration tests will seed and clean only test-owned rows in the existing schema to avoid dependence on pre-existing manual data.
 
 ## Success Criteria *(mandatory)*
 
