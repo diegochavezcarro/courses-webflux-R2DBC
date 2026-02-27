@@ -11,9 +11,9 @@
 
 **Purpose**: Prepare project dependencies and base configuration for reactive stack.
 
-- [ ] T001 Replace MVC/JDBC dependencies with WebFlux/R2DBC dependencies in pom.xml
-- [ ] T002 Configure reactive database connection settings in src/main/resources/application.yml
-- [ ] T003 Create test profile for deterministic local runs in src/test/resources/application-test.yml
+- [x] T001 Replace MVC/JDBC dependencies with WebFlux/R2DBC dependencies in pom.xml
+- [x] T002 Configure reactive database connection settings in src/main/resources/application.yml
+- [x] T003 Create test profile for deterministic local runs in src/test/resources/application-test.yml
 
 ---
 
@@ -23,9 +23,9 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T004 Create deterministic test data helper for `courses` rows in src/test/java/com/diegochavez/courses/CourseTestDataSupport.java
-- [ ] T005 Create shared WebFlux integration test base configuration in src/test/java/com/diegochavez/courses/AbstractCoursesIntegrationTest.java
-- [ ] T006 [P] Create response contract assertion utility for `Course` payloads in src/test/java/com/diegochavez/courses/CourseContractAssertions.java
+- [x] T004 Create deterministic test data helper for `courses` rows in src/test/java/com/diegochavez/courses/CourseTestDataSupport.java
+- [x] T005 Create shared WebFlux integration test base configuration in src/test/java/com/diegochavez/courses/AbstractCoursesIntegrationTest.java
+- [x] T006 [P] Create response contract assertion utility for `Course` payloads in src/test/java/com/diegochavez/courses/CourseContractAssertions.java
 
 **Checkpoint**: Foundation ready - user story implementation can now begin
 
@@ -39,15 +39,15 @@
 
 ### Tests for User Story 1
 
-- [ ] T007 [P] [US1] Add endpoint contract tests for default and explicit `limit` in src/test/java/com/diegochavez/courses/CourseEndpointContractTest.java
-- [ ] T008 [P] [US1] Add repository integration tests for `ORDER BY id` and `LIMIT` behavior in src/test/java/com/diegochavez/courses/CourseRepositoryR2dbcTest.java
+- [x] T007 [P] [US1] Add endpoint contract tests for default and explicit `limit` in src/test/java/com/diegochavez/courses/CourseEndpointContractTest.java
+- [x] T008 [P] [US1] Add repository integration tests for `ORDER BY id` and `LIMIT` behavior in src/test/java/com/diegochavez/courses/CourseRepositoryR2dbcTest.java
 
 ### Implementation for User Story 1
 
-- [ ] T009 [US1] Refactor repository query to reactive R2DBC with `ORDER BY id LIMIT :limit` in src/main/java/com/diegochavez/courses/repository/CourseRepository.java
-- [ ] T010 [US1] Refactor service to reactive flow (`Flux<Course>`) in src/main/java/com/diegochavez/courses/service/CourseService.java
-- [ ] T011 [US1] Refactor controller to WebFlux response preserving `/courses` and default `limit=100` in src/main/java/com/diegochavez/courses/controller/CourseController.java
-- [ ] T012 [US1] Keep `Course` serialization contract unchanged during reactive migration in src/main/java/com/diegochavez/courses/model/Course.java
+- [x] T009 [US1] Refactor repository query to reactive R2DBC with `ORDER BY id LIMIT :limit` in src/main/java/com/diegochavez/courses/repository/CourseRepository.java
+- [x] T010 [US1] Refactor service to reactive flow (`Flux<Course>`) in src/main/java/com/diegochavez/courses/service/CourseService.java
+- [x] T011 [US1] Refactor controller to WebFlux response preserving `/courses` and default `limit=100` in src/main/java/com/diegochavez/courses/controller/CourseController.java
+- [x] T012 [US1] Keep `Course` serialization contract unchanged during reactive migration in src/main/java/com/diegochavez/courses/model/Course.java
 
 **Checkpoint**: User Story 1 is functional and independently testable
 
@@ -61,13 +61,13 @@
 
 ### Tests for User Story 2
 
-- [ ] T013 [P] [US2] Add non-numeric `limit` compatibility tests in src/test/java/com/diegochavez/courses/CourseEndpointLimitErrorCompatibilityTest.java
-- [ ] T014 [P] [US2] Add zero/negative `limit` compatibility tests in src/test/java/com/diegochavez/courses/CourseEndpointLimitBoundaryCompatibilityTest.java
+- [x] T013 [P] [US2] Add non-numeric `limit` compatibility tests in src/test/java/com/diegochavez/courses/CourseEndpointLimitErrorCompatibilityTest.java
+- [x] T014 [P] [US2] Add zero/negative `limit` compatibility tests in src/test/java/com/diegochavez/courses/CourseEndpointLimitBoundaryCompatibilityTest.java
 
 ### Implementation for User Story 2
 
-- [ ] T015 [US2] Preserve baseline request-parameter parsing behavior for `limit` in src/main/java/com/diegochavez/courses/controller/CourseController.java
-- [ ] T016 [US2] Preserve baseline repository behavior for non-positive `limit` inputs in src/main/java/com/diegochavez/courses/repository/CourseRepository.java
+- [x] T015 [US2] Preserve baseline request-parameter parsing behavior for `limit` in src/main/java/com/diegochavez/courses/controller/CourseController.java
+- [x] T016 [US2] Preserve baseline repository behavior for non-positive `limit` inputs in src/main/java/com/diegochavez/courses/repository/CourseRepository.java
 
 **Checkpoint**: User Story 2 is functional and independently testable
 
@@ -81,14 +81,14 @@
 
 ### Tests for User Story 3
 
-- [ ] T017 [P] [US3] Add reactive application startup smoke test in src/test/java/com/diegochavez/courses/CoursesMvcJdbcApplicationTests.java
-- [ ] T018 [P] [US3] Add data isolation test for setup/cleanup determinism in src/test/java/com/diegochavez/courses/CourseIntegrationDataIsolationTest.java
+- [x] T017 [P] [US3] Add reactive application startup smoke test in src/test/java/com/diegochavez/courses/CoursesMvcJdbcApplicationTests.java
+- [x] T018 [P] [US3] Add data isolation test for setup/cleanup determinism in src/test/java/com/diegochavez/courses/CourseIntegrationDataIsolationTest.java
 
 ### Implementation for User Story 3
 
-- [ ] T019 [US3] Finalize test profile overrides for manual local DB execution in src/test/resources/application-test.yml
-- [ ] T020 [US3] Update test and app run instructions in README.md
-- [ ] T021 [US3] Align feature quickstart with final commands and constraints in specs/001-webflux-r2dbc-refactor/quickstart.md
+- [x] T019 [US3] Finalize test profile overrides for manual local DB execution in src/test/resources/application-test.yml
+- [x] T020 [US3] Update test and app run instructions in README.md
+- [x] T021 [US3] Align feature quickstart with final commands and constraints in specs/001-webflux-r2dbc-refactor/quickstart.md
 
 **Checkpoint**: User Story 3 is functional and independently testable
 
@@ -98,9 +98,9 @@
 
 **Purpose**: Final verification and cleanup across stories.
 
-- [ ] T022 [P] Add final contract regression assertions for `/courses` payload fields in src/test/java/com/diegochavez/courses/CourseEndpointContractTest.java
-- [ ] T023 Verify no `k6/` files changed and keep constraint note in specs/001-webflux-r2dbc-refactor/plan.md
-- [ ] T024 Run and document full local verification steps in specs/001-webflux-r2dbc-refactor/quickstart.md
+- [x] T022 [P] Add final contract regression assertions for `/courses` payload fields in src/test/java/com/diegochavez/courses/CourseEndpointContractTest.java
+- [x] T023 Verify no `k6/` files changed and keep constraint note in specs/001-webflux-r2dbc-refactor/plan.md
+- [x] T024 Run and document full local verification steps in specs/001-webflux-r2dbc-refactor/quickstart.md
 
 ---
 

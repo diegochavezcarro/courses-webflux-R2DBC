@@ -12,6 +12,12 @@
 ./mvnw test
 ```
 
+Run full suite including R2DBC integration tests (requires manually started DB):
+
+```bash
+RUN_DB_TESTS=true ./mvnw test
+```
+
 Run a specific test class:
 
 ```bash

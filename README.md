@@ -3,16 +3,52 @@
     
 ## Comandos
 
+### Variables sensibles por entorno
+
+Puedes partir de la plantilla sin secretos:
+
+```bash
+cp .env.example .env
+```
+
+Luego exportar variables desde `.env`:
+
+```bash
+set -a && source .env && set +a
+```
+
+Definir credenciales y conexión DB antes de ejecutar la app/tests:
+
+```bash
+export DB_R2DBC_URL='r2dbc:postgresql://localhost:5432/coursesdb'
+export DB_USERNAME='appuser'
+export DB_PASSWORD='tu_password_real'
+```
+
+Opcionalmente para tests puedes sobrescribir con variables dedicadas:
+
+```bash
+export TEST_R2DBC_URL="$DB_R2DBC_URL"
+export TEST_DB_USERNAME="$DB_USERNAME"
+export TEST_DB_PASSWORD="$DB_PASSWORD"
+```
+
 ```bash
 ./mvnw spring-boot:run
 ```
 
 ### Correr tests
 
-Ejecutar todos los tests:
+Ejecutar suite rápida (sin tests de integración con DB):
 
 ```bash
 ./mvnw test
+```
+
+Ejecutar también tests de integración WebFlux/R2DBC con DB manual iniciada:
+
+```bash
+RUN_DB_TESTS=true ./mvnw test
 ```
 
 Ejecutar una clase de test específica:

@@ -1,14 +1,7 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/coursesdb
-    username: appuser
-    password: app_password_123
-    hikari:
-      maximum-pool-size: 30
-      minimum-idle: 10
-      connection-timeout: 300
-  threads:
-    virtual:
-      enabled: true
+  r2dbc:
+    url: ${DB_R2DBC_URL:r2dbc:postgresql://localhost:5432/coursesdb}
+    username: ${DB_USERNAME:appuser}
+    password: ${DB_PASSWORD:}
 server:
   port: 8080
