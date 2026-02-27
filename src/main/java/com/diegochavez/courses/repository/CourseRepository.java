@@ -33,6 +33,7 @@ public class CourseRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    @SuppressWarnings("null")
     public List<Course> findAll(int limit) {
         return jdbcTemplate.query(FIND_ALL_SQL, courseRowMapper, limit);
     }
