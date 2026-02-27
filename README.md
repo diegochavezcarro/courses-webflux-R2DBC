@@ -7,6 +7,20 @@
 ./mvnw spring-boot:run
 ```
 
+### Correr tests
+
+Ejecutar todos los tests:
+
+```bash
+./mvnw test
+```
+
+Ejecutar una clase de test específica:
+
+```bash
+./mvnw -Dtest=CoursesMvcJdbcApplicationTests test
+```
+
 ```bash
 curl "http://localhost:8080/courses?limit=100"
 ```
