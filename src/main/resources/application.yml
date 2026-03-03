@@ -3,5 +3,9 @@ spring:
     url: ${DB_R2DBC_URL:r2dbc:postgresql://localhost:5432/coursesdb}
     username: ${DB_USERNAME:appuser}
     password: ${DB_PASSWORD:}
+    pool:
+      enabled: true
+      initial-size: 5
+      max-size: 20
 server:
   port: 8080
